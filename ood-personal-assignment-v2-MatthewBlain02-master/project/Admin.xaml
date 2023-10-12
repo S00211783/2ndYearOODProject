@@ -1,0 +1,191 @@
+﻿<Window x:Class="project.Admin"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:project"
+        mc:Ignorable="d"
+        Title="BLAIN POS" MinHeight="450" MinWidth="800" MaxHeight="600" MaxWidth="1000" Background="Azure" WindowStyle="None" WindowStartupLocation="CenterScreen" FontFamily="Arial Black">
+    <Window.Resources>
+        <DataTemplate x:Key="ProductTemplate">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="60"/>
+                    <ColumnDefinition Width="200"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Label Grid.Column="0" Content="{Binding Path=ProductID}" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                <Label Grid.Column="1" Content="{Binding Path=ProductName}" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                <Label Grid.Column="2" Content="€" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0 0 -9 0"/>
+                <Label Grid.Column="3" Content="{Binding Path=ProductPrice}" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0 0 10 0"/>
+            </Grid>
+        </DataTemplate>
+    </Window.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition Height="30"/>
+        </Grid.RowDefinitions>
+        <TabControl TabStripPlacement="Left">
+            <TabItem Loaded="User_Loaded" Background="#FF08FFE3" BorderBrush="{x:Null}" FontFamily="Arial Black">
+                <TabItem.Header>
+                    <Label Content="User"/>
+                </TabItem.Header>
+                <Grid Background="#FF20A4D0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="30"/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <StackPanel Grid.Row="0" Grid.Column="0" Orientation="Horizontal" Margin="5">
+                        <Label Content="Search: "/>
+                        <TextBox x:Name="tbxSearchUser" Width="100" Background="White" KeyDown="tbxSearchUser_KeyDown"/>
+                        <Button x:Name="btnClearSearch" Content="Clear" Click="btnClearSearch_Click" Margin="10 0" Background="Red"/>
+                    </StackPanel>
+                    <ListBox x:Name="lbxUsers" Grid.Row="1" Grid.Column="0" SelectionChanged="lbxUsers_SelectionChanged" BorderBrush="{x:Null}" Background="#FFF3F3F3" FontFamily="Arial Black"/>
+                    <StackPanel Grid.Column="1" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center">
+                        <StackPanel Orientation="Horizontal" Margin="10">
+                            <Label Content="Name : "/>
+                            <TextBox x:Name="tbName" Width="250" Background="White" FontFamily="Arial Black"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" Margin="10">
+                            <Label Content="Password : "/>
+                            <TextBox x:Name="tbPassword" Width="250" FontFamily="Arial Black"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" Margin="10">
+                            <Label Content="Is Admin : " HorizontalAlignment="Center"/>
+                            <ComboBox Width="250" BorderBrush="{x:Null}" Background="White" FontFamily="Arial Black">
+                                <ComboBoxItem x:Name="cbiTrue"  Content="True"/>
+                                <ComboBoxItem x:Name="cbiFalse" Content="False"/>
+                            </ComboBox>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                            <Button x:Name="btnAddUser" Content="Add" Margin="10" Padding="10" Click="btnAddUser_Click" Background="#FF1CD85B" FontFamily="Arial Black" BorderBrush="{x:Null}"/>
+                            <Button x:Name="btnSaveUser" Content="Save" Margin="10" Padding="10" Click="btnSaveUser_Click" Background="#FFF9DB10" FontFamily="Arial Black" BorderBrush="{x:Null}"/>
+                            <Button x:Name="btnDelUser" Content="Delete" Margin="10" Padding="10" Click="btnDelUser_Click" Background="#FFFF1010" FontFamily="Arial Black" BorderBrush="{x:Null}"/>
+                        </StackPanel>
+                    </StackPanel>
+                </Grid>
+            </TabItem>
+            <TabItem Loaded="Product_Loaded" FontFamily="Arial Black" Background="#FF08FFE3" BorderBrush="{x:Null}">
+                <TabItem.Header>
+                    <Label Content="Products"/>
+                </TabItem.Header>
+                <Grid Background="#FF20A4D0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="30"/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <StackPanel Grid.Row="0" Grid.Column="0" Orientation="Horizontal" Margin="5">
+                        <Label Content="Search: "/>
+                        <TextBox x:Name="tbxSearchProduct" Width="100" Background="White" KeyDown="tbxSearchProduct_KeyDown"/>
+                        <Button x:Name="btnClearSearchProduct" Content="Clear" Click="btnClearSearch_Click" Margin="10 0" Background="Red"/>
+                    </StackPanel>
+                    <ListBox x:Name="lbxProducts" Grid.Row="1" Grid.Column="0" SelectionChanged="lbxProducts_SelectionChanged" ItemTemplate="{StaticResource ResourceKey=ProductTemplate}" Background="#FFF3F3F3"/>
+                    <StackPanel Grid.Column="1" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center">
+                        <StackPanel Orientation="Horizontal" Margin="10">
+                            <Label Content="Product Name : "/>
+                            <TextBox x:Name="tbProductName" Width="250"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" Margin="10">
+                            <Label Content="Product Price : "/>
+                            <TextBox x:Name="tbProductPrice" Width="250"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" Margin="10">
+                            <Label Content="Category "/>
+                            <ComboBox x:Name="cbProductsCategory" Width="250">
+
+                            </ComboBox>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" Margin="10">
+                            <Label Content="Product Image "/>
+                            <TextBox x:Name="tbImgSrc" Width="250"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                            <Button x:Name="btnAddProduct" Content="Add" Margin="10" Padding="10" Click="btnAddProduct_Click" Background="#FF1CD85B" BorderBrush="{x:Null}"/>
+                            <Button x:Name="btnSaveProduct" Content="Save" Margin="10" Padding="10" Click="btnSaveProduct_Click" Background="#FFF9DB10" BorderBrush="{x:Null}"/>
+                            <Button x:Name="btnDelProduct" Content="Delete" Margin="10" Padding="10" Click="btnDelProduct_Click" Background="#FFFF1010" BorderBrush="{x:Null}"/>
+                        </StackPanel>
+                    </StackPanel>
+                </Grid>
+            </TabItem>
+            <TabItem Loaded="Categories_Loaded" FontFamily="Arial Black" Background="#FF08FFE3" BorderBrush="{x:Null}">
+                <TabItem.Header>
+                    <Label Content="Categories"/>
+                </TabItem.Header>
+                <Grid Background="#FF20A4D0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <ListBox x:Name="lbxCategories" Grid.Row="0" Grid.Column="0" SelectionChanged="lbxCategories_SelectionChanged" Background="#FFF3F3F3"/>
+                    <StackPanel Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center">
+                        <StackPanel Orientation="Horizontal" Margin="10">
+                            <Label Content="Category Name : "/>
+                            <TextBox x:Name="tbCategoryName" Width="250"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                            <Button x:Name="btnAddCategory" Content="Add" Margin="10" Padding="10" Click="btnAddCategory_Click" Background="#FF1CD85B" BorderBrush="{x:Null}"/>
+                            <Button x:Name="btnSaveCategory" Content="Save" Margin="10" Padding="10" Click="btnSaveCategory_Click" Background="#FFF9DB10" BorderBrush="{x:Null}"/>
+                            <Button x:Name="btnDelCategory" Content="Delete" Margin="10" Padding="10" Click="btnDelCategory_Click" Background="#FFFF1010" BorderBrush="{x:Null}"/>
+                        </StackPanel>
+                    </StackPanel>
+                </Grid>
+            </TabItem>
+            <TabItem Loaded="TransactionType_Loaded" FontFamily="Arial Black" Background="#FF08FFE3">
+                <TabItem.Header>
+                    <Label Content="Transaction Types"/>
+                </TabItem.Header>
+                <Grid Background="#FF20A4D0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <ListBox x:Name="lbxTransactionTypes" Grid.Row="0" Grid.Column="0" SelectionChanged="lbxTransactionTypes_SelectionChanged" Background="#FFF3F3F3"/>
+                    <StackPanel Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center">
+                        <StackPanel Orientation="Horizontal" Margin="10">
+                            <Label Content="Transaction Type Name : " FontSize="10"/>
+                            <TextBox x:Name="tbTransactionTypeName" Width="250"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                            <Button x:Name="btnAddTType" Content="Add" Margin="10" Padding="10" Click="btnAddTType_Click" Background="#FF1CD85B" BorderBrush="{x:Null}"/>
+                            <Button x:Name="btnSaveTType" Content="Save" Margin="10" Padding="10" Click="btnSaveTType_Click" Background="#FFF9DB10" BorderBrush="{x:Null}"/>
+                            <Button x:Name="btnDelTType" Content="Delete" Margin="10" Padding="10" Click="btnDelTType_Click" Background="#FFFF1010" BorderBrush="{x:Null}"/>
+                        </StackPanel>
+                    </StackPanel>
+                </Grid>
+            </TabItem>
+            <TabItem Loaded="Transaction_Loaded" FontFamily="Arial Black" Background="#FF08FFE3" BorderBrush="{x:Null}">
+                <TabItem.Header>
+                    <Label Content="Transactions"/>
+                </TabItem.Header>
+                <Grid Background="#FF20A4D0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <ListBox x:Name="lbxTransactions" Grid.Row="0" Grid.Column="0" SelectionChanged="lbxTransactions_SelectionChanged"/>
+                    <TextBlock x:Name="tbReceipt" Grid.Row="0" Grid.Column="1" HorizontalAlignment="Center" TextAlignment="Center"/>
+                </Grid>
+            </TabItem>
+        </TabControl>
+        <Button Grid.Row="1" Content="Close" Click="Button_Click" Background="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}" FontFamily="Rockwell Extra Bold" FontSize="16" BorderBrush="{x:Null}"/>
+    </Grid>
+</Window>

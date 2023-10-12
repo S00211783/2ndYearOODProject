@@ -1,0 +1,110 @@
+﻿<Window x:Class="project.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:project"
+        mc:Ignorable="d"
+        Title="BLAIN POS" MinHeight="450" MinWidth="800" MaxHeight="600" MaxWidth="1000" Background="Azure" WindowStyle="None" WindowStartupLocation="CenterScreen" Loaded="Window_Loaded" FontFamily="Arial Black">
+    <Window.Resources>
+        <DataTemplate x:Key="ProductsTemplate">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="200"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Image Source="{Binding Path=ProductImg}" Width="60"/>
+                <Label Grid.Column="1" Content="{Binding Path=ProductName}" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                <Label Grid.Column="2" Content="€" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0 0 -9 0"/>
+                <Label Grid.Column="3" Content="{Binding Path=ProductPrice}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            </Grid>
+        </DataTemplate>
+        <DataTemplate x:Key="CartTemplate">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Label Grid.Column="0" Content="{Binding Path=ProductName}" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                <Label Grid.Column="1" Content="€" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0 0 -9 0"/>
+                <Label Grid.Column="2" Content="{Binding Path=ProductPrice}" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0 0 10 0"/>
+                <Label Grid.Column="3" Content="{Binding Path=cartQuantity}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            </Grid>
+        </DataTemplate>
+    </Window.Resources>
+    <Grid>
+        <!-- Defining Rows For Main Grid-->
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="150"/>
+        </Grid.ColumnDefinitions>
+        <!-- Items Tabs-->
+        <TabControl x:Name="TCMenu" Loaded="TCMenu_Loaded" Background="#FFF3F3F3" TabStripPlacement="Top">
+
+        </TabControl>
+        <!-- Sidebar Commands-->
+        <StackPanel x:Name="commandBar" Grid.Column="2">
+            <Button x:Name="btnVoid" Content="Void" Margin="10" Height="30" Click="btnVoid_Click"></Button>
+            <Button x:Name="btnVoidAll" Content="Void All" Margin="10" Height="30" Click="btnVoidAll_Click"></Button>
+            <Button x:Name="btnSignOff" Content="Sign Off" Margin="10" Height="30" Click="btnSignOff_Click"></Button>
+            <Button x:Name="btnJournels" Content="Journals" Margin="10" Height="30" Click="btnJournels_Click"></Button>
+        </StackPanel>
+        <!-- Middle Grid -->
+        <Grid Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="25"/>
+                <RowDefinition/>
+                <RowDefinition Height="30"/>
+                <RowDefinition Height="150"/>
+                <RowDefinition Height="50"/>
+            </Grid.RowDefinitions>
+            <!-- Listbox For Cart -->
+            <ListBox x:Name="LbxCart" Grid.Row="1" ItemTemplate="{StaticResource CartTemplate}"></ListBox>
+            <!-- TextBox For Displaying Inputed Numbers-->
+            <TextBlock x:Name="TbNumIn" Grid.Row="2" Background="#FFA7A7A7" FontSize="19"></TextBlock>
+            <!-- Grid For Numbers, C, X and Enter Buttons-->
+            <Grid Grid.Row="3">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Button x:Name="btn1" Content="1" Click="btnNum_Click" BorderBrush="Black" Background="{x:Null}"></Button>
+                <Button x:Name="btn2" Content="2" Grid.Column="1" Click="btnNum_Click" Background="{x:Null}" BorderBrush="Black"></Button>
+                <Button x:Name="btn3" Content="3" Grid.Column="2" Click="btnNum_Click" BorderBrush="Black" Background="{x:Null}"></Button>
+                <Button x:Name="btn4" Content="4" Grid.Row="1" Click="btnNum_Click" Background="{x:Null}" BorderBrush="Black"></Button>
+                <Button x:Name="btn5" Content="5" Grid.Row="1" Grid.Column="1" Click="btnNum_Click" BorderBrush="Black" Background="{x:Null}"></Button>
+                <Button x:Name="btn6" Content="6" Grid.Row="1" Grid.Column="2" Click="btnNum_Click" Background="{x:Null}" BorderBrush="Black"></Button>
+                <Button x:Name="btn7" Content="7" Grid.Row="2" Click="btnNum_Click" Background="{x:Null}" BorderBrush="Black"></Button>
+                <Button x:Name="btn8" Content="8" Grid.Row="2" Grid.Column="1" Click="btnNum_Click" BorderBrush="Black" Background="{x:Null}"></Button>
+                <Button x:Name="btn9" Content="9" Grid.Row="2" Grid.Column="2" Click="btnNum_Click" Background="{x:Null}" BorderBrush="Black"></Button>
+                <Button x:Name="btn0" Content="0" Grid.Row="2" Grid.Column="3" Click="btnNum_Click" Background="{x:Null}" BorderBrush="Black"></Button>
+                <Button x:Name="btnClear" Content="C" Grid.Column="3" Click="btnClear_Click" Background="{x:Null}" BorderBrush="Black"></Button>
+                <Button x:Name="btnMulti" Content="X" Grid.Column="3" Grid.Row="1" Click="btnMulti_Click" BorderBrush="Black" Background="{x:Null}"></Button>
+                <Button x:Name="btnEnter" Content="ENTER" Grid.Column="4" Grid.RowSpan="3" Background="{x:Null}" Click="btnEnter_Click"></Button>
+            </Grid>
+            <!-- Subtotal Button-->
+            <Button x:Name="btnSubtotal" Grid.Row="4" Content="Subtotal : " Click="btnSubtotal_Click" BorderBrush="{x:Null}" Background="#FF31CA6C"/>
+            <!-- Header -->
+
+            <StackPanel Orientation="Horizontal" Background="Azure" Grid.Row="0" Loaded="StackPanel_Loaded">
+                <TextBlock x:Name="TbID" Text="ID : " Margin="20 5"/>
+                <TextBlock x:Name="TbName" Text="Name : " Margin="20 5"/>
+                <TextBlock x:Name="TbDate" Text="Date : " Margin="20 5"/>
+            </StackPanel>
+        </Grid>
+
+    </Grid>
+</Window>
